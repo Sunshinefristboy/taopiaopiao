@@ -10,6 +10,7 @@
       <div class="swiper-pagination"></div>
     </div>
     <h1>热映首页</h1>
+
   </div>
 </template>
 

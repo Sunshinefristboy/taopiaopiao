@@ -35,7 +35,12 @@ export default new Router({
     {
       path: '/city',
       name: 'city',
-      component: () => import('./city/city.vue')
+      component: () => import('./city/index.vue')
+    },
+    {
+      path: '/film',
+      name: 'film',
+      component: () => import('./film/film.vue')
     },
     {
       path:'*',

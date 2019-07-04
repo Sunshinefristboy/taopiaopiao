@@ -16,11 +16,12 @@
       <a href="#">免费注册 </a>
     </div >
     <div >
-      <van-button round  size="large" >登录</van-button>
+      <van-button round  size="large" :disabled="!password||!username" @click="login_in({username,password})">登录</van-button>
     </div>
   </div>
 </template>
 <script>
+import {mapActions} from 'vuex'
 export default {
     data(){
         return {
@@ -28,7 +29,11 @@ export default {
             password:''
         }
     },
-  name: "login"
+  name: "login",
+  methods:{
+    ...mapActions('login',['login_in'])
+  }
+
 };
 </script>
 <style lang='scss'>

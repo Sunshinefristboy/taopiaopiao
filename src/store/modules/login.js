@@ -20,14 +20,14 @@ const mutations = {
 
 const actions = {
   login_in(context,payload){
-    Toast.loading({ duration: 0, mask: true, message: "加载中..." });
+    Toast.loading({ duration: 0, message: "加载中..." });
     axios.post("http://localhost:9090/sign-in" ,payload).then((respone)=>{
       let res=respone.data;
       if(res.code===0){
         context.commit({type:"setinfo",info:res.data})
         router.push('/index')
       }else{
-        setTimeout(()=>{Toast(res.msg)},2000)
+        setTimeout(()=>{Toast('用户名或密码有误')},2000)
         
       }
       Toast.clear()

@@ -19,14 +19,15 @@
               <span class="item">{{ item.filmType.name }}</span>
             </div>
             <div class="film-grade info-col" style="visibility: visible;">
-              <span class="label">观众评分</span>
+              <span class="label" v-show="filmType==='nowPlaying'">观众评分</span>
               <span class="grade">{{ item.grade }}</span>
             </div>
             <div class="film-actors info-col">
               <span class="label">主演：{{ item.actors | actorFormat }}</span>
             </div>
             <div class="film-detail info-col">
-              <span class="label">{{ item.nation }} | {{ item.runtime }}分钟</span>
+              <span class="label" v-show="filmType==='nowPlaying'">{{ item.nation }} | {{ item.runtime }}分钟</span>
+              <span class="label" v-show="filmType==='comingSoon'">上映时间:{{ item.premiereAt }} | {{ item.runtime }}分钟</span>
             </div>
           </div>
           <div class="buy" v-show="filmType==='nowPlaying'">购票</div>
@@ -39,6 +40,11 @@
 
 <script>
 export default {
+  data(){
+    return {
+      
+    }
+  },
     name: "FilmList",
 
     props: {

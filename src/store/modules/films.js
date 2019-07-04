@@ -1,11 +1,7 @@
 import Axios from "axios";
 import {Toast} from 'vant'
 
-
-
-
 const state={
-    bannerList:[],
     filmList:[],
     curFilmType:0,
     filmLoading:false,
@@ -24,12 +20,6 @@ const getters={
 };
 
 const mutations={
-    setBannerList(state,payload){
-
-        // console.log(payload);
-        
-        state.bannerList=payload.list
-    },
     setFilmList(state, payload) {
         state.filmList = payload.list;
         state.total = payload.total;
@@ -49,28 +39,14 @@ const mutations={
 };
 
 const actions={
-    getBannerList({commit}){
-        Axios.get('https://m.maizuo.com/gateway?type=2&cityId=440300&k=1607992',{
-            headers:{
-                "X-Client-Info": '{"a":"3000","ch":"1002","v":"5.0.4","e":"15611214209195524981699"}',
-                "X-Host": "mall.cfg.common-banner"
-
-            }
-        }).then(response => {
-            let res =response.data;
-            // console.log(res);
-            
-            if(res.status===0){
-                commit({
-                    type:'setBannerList',
-                    list:res.data
-                })
-            }else{
-                alert(res.msg)
-            }
-        })
-    },
-    getFilmList({ commit, state }) {
+   
+    getFilmList({ commit, state }, isChangeFilmType) {
+      if (isChangeFilmType) {
+        // 1. 清空filmlist 这里会有个bug
+        commit({ type: "setFilmList", list: [], total: 1 });
+        // 2. 将 pageNum 设置为 1
+        commit({ type: "setPageNum", num: 1 });
+      }
         // 请求之前， loading
         Toast.loading({ duration: 0, mask: true, message: "加载中..." });
         Axios

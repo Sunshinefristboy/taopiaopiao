@@ -1,4 +1,12 @@
 <template>
+<van-list
+    v-model="filmLoading"
+    :immediate-check="true"
+    @load="getFilmList"
+    :finished="isFinished"
+    finished-text="别拉了"
+    ref="myBox"
+  >
   <div class="movie">
     <div class="tpp-nav">
     <div class="city-fixed" @click="handleGoCity" >
@@ -6,7 +14,7 @@
         <i class="iconfont icon-xiala"></i>
     </div>
     <van-tabs v-model="curFilmType" line-width="30px" line-height="5px" title-active-color="#ff2e62"
-    title-inactive-color="#000" class="tpp-nav-right"
+    title-inactive-color="#000" class="tpp-nav-right" sticky
     >
       <van-tab title="正在热映">
         <filmlist filmType="nowPlaying" :list="filmList" />
@@ -18,6 +26,7 @@
     </van-tabs>
     </div>
   </div>
+  </van-list>
 </template>
 
 <script>
@@ -26,17 +35,13 @@ import filmlist from "@/components/filmlist"
 import { mapState, mapActions, mapGetters } from "vuex";
 // import Swiper from "swiper";
 export default {
-  data() {
-    return {
-      active: 0
-    };
-  },
+  
   name: "movie",
   components:{
     filmlist
   },
   computed: {
-    ...mapState("film", ["bannerList","filmList"]),
+    ...mapState("film", ["filmList"]),
     ...mapGetters("film",["isFinished"]),
     ...mapGetters("city", ["curCityInfo"]),
     curFilmType:{
@@ -65,16 +70,7 @@ export default {
 
   watch: {
     curFilmType(newVal,oldVal){
-      this.getFilmList();
-    },
-    bannerList() {
-      // if (this.mySwiper) {
-      //   // 已经被初始化
-      //   this.mySwiper.destroy();
-      // }
-      this.$nextTick(() => {
-        this.initSwiper();
-      });
+      this.getFilmList(true);
     }
   },
   methods: {
@@ -101,8 +97,7 @@ export default {
   },
 
   created() {
-    this.getBannerList();
-    this.getFilmList()
+    // this.getFilmList()
   }
 
   // mounted() {

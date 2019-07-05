@@ -4,7 +4,7 @@
     :immediate-check="true"
     @load="getFilmList"
     :finished="isFinished"
-     finished-text="没有更多了"
+     finished-text="别拉了，放开我"
     ref="myBox"
   >
   <div class="movie">

@@ -241,4 +241,7 @@ export default {
     }
   }
 }
+.van-list__placeholder{
+  height: 50px;
+}
 </style>

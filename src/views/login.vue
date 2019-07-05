@@ -12,8 +12,8 @@
       <van-field v-model="password" type="password" placeholder="请输入密码" />
     <!-- </van-cell-group> -->
     <div class="connect">
-      <a href="#">短信验证码登录</a>
-      <a href="#">免费注册 </a>
+      <a href="https://login.m.taobao.com/msg_login.htm?spm=0.0.0.0&redirectURL=https%3A%2F%2Fh5.m.taopiaopiao.com%2Fapp%2Fmoviemine%2Fpages%2Fprofile%2Findex.html%3Fspm%3Da1z2r.7661904.0.0.2e32EDrdEDrd3m%26from%3Douter%26sqm%3Da1z2r.7661904.a1z2r.7661912%26title%3D%25E6%2588%2591%25E7%259A%2584">短信验证码登录</a>
+      <a href="https://reg.taobao.com/member/reg/h5/fill_mobile.htm">免费注册 </a>
     </div >
     <div >
       <van-button round  size="large" :disabled="!password||!username" @click="login_in({username,password})">登录</van-button>

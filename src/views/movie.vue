@@ -116,7 +116,7 @@ export default {
 .city-fixed {
   
     position: absolute;
-    top: px2rem(7);
+    top: px2rem(10);
     left: px2rem(0);
     color: red;
     z-index: 200;

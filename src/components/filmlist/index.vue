@@ -26,8 +26,15 @@
               <span class="label">主演：{{ item.actors | actorFormat }}</span>
             </div>
             <div class="film-detail info-col">
-              <span class="label" v-show="filmType==='nowPlaying'">{{ item.nation }} | {{ item.runtime }}分钟</span>
-              <span class="label" v-show="filmType==='comingSoon'">上映时间:{{ item.premiereAt }} | {{ item.runtime }}分钟</span>
+              <span
+                class="label"
+                v-show="filmType==='nowPlaying'"
+              >{{ item.nation }} | {{ item.runtime }}分钟</span>
+              <span
+                class="label"
+                v-show="filmType==='comingSoon'" 
+               
+              >上映时间:{{ item.premiereAt| getweek }} | {{ item.premiereAt| getdata }} </span>
             </div>
           </div>
           <div class="buy" v-show="filmType==='nowPlaying'">购票</div>
@@ -39,61 +46,92 @@
 </template>
 
 <script>
+import { log } from 'util';
 export default {
-  data(){
+  data() {
     return {
-      
-    }
-  },
-    name: "FilmList",
-
-    props: {
-        list: {
-        type: Array,
-        default() {
-            return [];
-        }
-        },
-        filmType: String
-    },
-
-    methods: {
-        /**
-         * 格式化主演显示
-         * @param {Array} actors 主演集合
-         */
-        // [{ name: 'zhagnsan', id: 123}, {name: 'lisi', id: 123}]
-        // ['zhagnsan', 'lisi']
-        // actorFormat(actors) {
-        //   let tmp = actors.map(item => item.role);
-        //   return tmp.join(" ");
-        // }
-    },
-
-    // 过滤器 - 做数据格式化操作
-    // 过滤器使用 {{ msg | fil1 }}
-    filters: {
-        // key - 过滤器名字
-        // value - 函数 接收一个 value 值
-        // key: value
-        actorFormat(actors = []) {
-        let tmp = actors.map(item => item.name);
-        return tmp.length ? tmp.join(" ") : "暂无数据";
-        },
-
-        fil1(value) {
-        return value.split("")[0];
-        },
-
-        fil2(value, ) {
-        // console.log(value);
-        // console.log(str1);
-        // console.log(str2);
-        return value;
-        }
-    }
+      result:""
     };
-    
+  },
+  name: "FilmList",
+
+  props: {
+    list: {
+      type: Array,
+      default() {
+        return [];
+      }
+    },
+    filmType: String
+  },
+
+  methods: {
+    /**
+     * 格式化主演显示
+     * @param {Array} actors 主演集合
+     */
+    // [{ name: 'zhagnsan', id: 123}, {name: 'lisi', id: 123}]
+    // ['zhagnsan', 'lisi']
+    // actorFormat(actors) {
+    //   let tmp = actors.map(item => item.role);
+    //   return tmp.join(" ");
+    // }
+  //   Time(timestamp) {
+  //     let result = "";
+
+  //     if (timestamp) {
+  //       var d = new Date();
+  //       d.setTime(timestamp);
+  //       var year = d.getFullYear();
+  //       var month = d.getMonth() + 1;
+  //       var day = d.getDate();
+  //       if (month < 10) {
+  //         month = "0" + month;
+  //       }
+  //       if (day < 10) {
+  //         day = "0" + day;
+  //       }
+  //       result = year  + month  + day;
+  //     }
+  //     return result;
+  //   }
+  },
+
+  // 过滤器 - 做数据格式化操作
+  // 过滤器使用 {{ msg | fil1 }}
+  filters: {
+    // key - 过滤器名字
+    // value - 函数 接收一个 value 值
+    // key: value
+    actorFormat(actors = []) {
+      let tmp = actors.map(item => item.name);
+      return tmp.length ? tmp.join(" ") : "暂无数据";
+    },
+    getdata(premiereAt){
+      let m=new Date(premiereAt*1000).getMonth() + 1;
+      let d=new Date(premiereAt*1000).getDate();
+      return m+"月"+d+"日";
+    },
+    getweek(premiereAt){
+      
+      // var week;
+      let week= new Date(premiereAt*1000).getDay();
+      let chinese=["日","一","二","三","四","五","六"];
+      return "周"+chinese[week]
+    },
+
+    fil1(value) {
+      return value.split("")[0];
+    },
+
+    fil2(value) {
+      // console.log(value);
+      // console.log(str1);
+      // console.log(str2);
+      return value;
+    }
+  }
+};
 </script>
 
 <style lang="scss">

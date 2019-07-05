@@ -2,7 +2,7 @@
   <div class="index">
     <router-view />
     <van-tabbar v-model="active" route  active-color="red"
-  inactive-color="#000">
+  inactive-color="#000" class="tpp_index">
       <van-tabbar-item icon="home-o" to="/index">热映</van-tabbar-item>
       <van-tabbar-item icon="search" dot to="/cinema">影院</van-tabbar-item>
       <van-tabbar-item icon="friends-o" info="5" to="/login">我的</van-tabbar-item>
@@ -22,3 +22,9 @@ export default {
   }
 };
 </script>
+<style lang="scss">
+.tpp_index{
+  
+}
+</style>
+

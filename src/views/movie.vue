@@ -1,140 +1,144 @@
 <template>
-<van-list
+  <van-list
     v-model="filmLoading"
-    :immediate-check="true"
     @load="getFilmList"
     :finished="isFinished"
-    finished-text="别拉了"
+    finished-text="已经是最后一页了"
     ref="myBox"
   >
-  <div class="movie">
-    <div class="tpp-nav">
-    <div class="city-fixed" @click="handleGoCity" >
-        <span>{{ curCityInfo && curCityInfo.name }}</span>
-        <i class="iconfont icon-xiala"></i>
+    <div class="page-home-movie">
+      <div class="top">
+        <div class="left">
+          <img src="@/assets/imges/logo.jpg" alt>
+          <span>北京<i class="iconfont icon-jiantouarrow486"></i></span>
+        </div>
+        <div class="right">
+          <van-tabs v-model="curFilmType" line-width="20px" title-active-color="#ef3d5d">
+            <van-tab title="正在热映">
+              <Filmlist filmType="nowPlaying" :list="filmList"/>
+            </van-tab>
+            <van-tab title="即将上映">
+              <Filmlist filmType="comingSoon" :list="filmList"/>
+            </van-tab>
+          </van-tabs>
+        </div>
+      </div>
     </div>
-    <van-tabs v-model="curFilmType" line-width="30px" line-height="5px" title-active-color="#ff2e62"
-    title-inactive-color="#000" class="tpp-nav-right" sticky
-    >
-      <van-tab title="正在热映">
-        <filmlist filmType="nowPlaying" :list="filmList" />
-        
-      </van-tab>
-      <van-tab title="即将上映">
-        <filmlist filmType="comingSoon" :list="filmList" />
-      </van-tab>
-    </van-tabs>
-    </div>
-  </div>
   </van-list>
 </template>
 
 <script>
-import Swiper from "swiper";
-import filmlist from "@/components/filmlist"
-import { mapState, mapActions, mapGetters } from "vuex";
-// import Swiper from "swiper";
+import Filmlist from "@/components/filmlist";
+import { mapState, mapGetters, mapActions } from "vuex";
+
 export default {
-  
   name: "movie",
-  components:{
-    filmlist
+
+  components: {
+    Filmlist
   },
+
   computed: {
-    ...mapState("film", ["filmList"]),
-    ...mapGetters("film",["isFinished"]),
-    ...mapGetters("city", ["curCityInfo"]),
-    curFilmType:{
-      get(){
-        return this.$store.state.film.curFilmType;
+    ...mapState("films", ["filmList"]),
+    ...mapGetters("films", ["isFinished"]),
+
+    curFilmType: {
+      get() {
+        return this.$store.state.films.curFilmType;
       },
-      set(value){
+
+      set(value) {
         this.$store.commit({
-          type:"film/setCurFilmType",
-          filmType:value
-        })
+          type: "films/setCurFilmType",
+          filmType: value
+        });
       }
     },
-    filmLoading:{
-      get(){
-        return this.$store.state.film.filmLoading;
+
+    filmLoading: {
+      get() {
+        return this.$store.state.films.filmLoading;
       },
-      set(value){
+      set(value) {
         this.$store.commit({
-          type:"film/setFilmLoading",
-          loading:value
-        })
+          type: "films/setFilmLoading",
+          loading: value
+        });
       }
     }
   },
 
   watch: {
-    curFilmType(newVal,oldVal){
+    curFilmType(newVal, oldVal) {
+      this.$refs["myBox"].$el.scrollTop = 0;
       this.getFilmList(true);
     }
   },
+
   methods: {
-    ...mapActions("film", ["getBannerList","getFilmList"]),
-    initSwiper() {
-      new Swiper(".swiper-container", {
-        loop: true, // 循环模式选项
-        autoplay: {
-          delay: 1000,
-          stopOnLastSlide: false,
-          disableOnInteraction: true
-        },
-        // 如果需要分页器
-        pagination: {
-          el: ".swiper-pagination"
-        }
-      });
+    ...mapActions("films", ["getFilmList"]),
+
+    created() {
+
     },
-    handleGoCity() {
-      this.$router.push("/city");
-      console.log(this);
+
+    mounted() {
+
     }
-
-  },
-
-  created() {
-    // this.getFilmList()
   }
-
-  // mounted() {
-  //   this.initSwiper();
-  // }
 };
 </script>
 
 <style lang="scss">
+@import "~@/assets/mixins.scss";
 @import "~@/assets/px2rem.scss";
-@import "./movie.scss";
-// .tpp-nav{
-//   width: px2rem(375);
-//   display:flex
-// }
-.city-fixed {
-  
-    position: absolute;
-    top: px2rem(7);
-    left: px2rem(0);
-    color: red;
-    z-index: 200;
-    font-size: 16px;
-    background: rgba(216, 240, 5, 0.2);
-    height: px2rem(20);
-    // width: px2rem(210);
-    line-height: px2rem(20);
-    border-radius: px2rem(15);
-    text-align: center;
-    padding: px2rem(5);
-    
 
-    i {
-      font-size: 18px;
+.page-home-movie {
+  height: 100%;
+  padding: 0 px2rem(16);
+  .top {
+    height: 100%;
+    width: 100%;
+    // background: yellow;
+    position: relative;
+    .left {
+      z-index: 100;
+      position: absolute;
+      margin-top: px2rem(12);
+      width: px2rem(76);
+      height: px2rem(26);
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      // background: red;
+      img {
+        display: block;
+        padding-right: 10px;
+      }
+      span {
+        font-size: 14px;
+        position: relative;
+        .iconfont {
+          font-size: 16px;
+          position: absolute;
+          top: 0;
+        }
+      }
+    }
+    .right {
+      width: 100%;
+      .van-tabs {
+        width: 100%;
+        position: relative;
+        .van-tabs__wrap {
+          width: px2rem(160);
+          position: absolute;
+          left: px2rem(160);
+          top: px2rem(2);
+        }
+      }
     }
   }
-  .tpp-nav-right{
-    
-  }
+}
 </style>
+

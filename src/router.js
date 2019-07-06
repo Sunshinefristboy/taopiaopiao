@@ -11,23 +11,24 @@ const router = new Router({
       path: '/',
       name: 'index',
       component: index,
-      children:[{
-        path:'index',
-        name:'movie',
-        component:()=>import('./views/movie.vue')
-      },
-      {
-        path:'cinema',
-        name:'cinema',
-        component:()=>import('./views/cinema.vue')
-        
-      },
-      {
-        path:'',
-        redirect:'./index'
-      }
-    
-    ]
+
+      children:[
+        {
+          path:'index',
+          name:'movie',
+          component:()=>import('./views/movie.vue')
+        },
+        {
+          path:'cinema',
+          name:'cinema',
+          component:()=>import('./views/cinema.vue')
+        },
+        {
+          path:'',
+          redirect:'./index'
+        }
+      ]
+
     },
     {
       path: '/login',

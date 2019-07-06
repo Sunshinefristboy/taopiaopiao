@@ -1,4 +1,5 @@
 <template>
+
   <div class="filmlist-all">
     <div class="mz-filmlist" v-for="(item, index) in list" :key="index">
       <div class="mz-filmlist__left">
@@ -21,11 +22,14 @@
         <a href="javascript:;" style="background:#0187e6" v-show="filmType === 'comingSoon'">预售</a>
       </div>
     </div>
+
   </div>
 </template>
 
 <script>
+import { log } from 'util';
 export default {
+
   props: {
     list: {
       type: Array,
@@ -43,6 +47,7 @@ export default {
     }
   }
 }
+
 </script>
 
 <style lang="scss">
@@ -119,6 +124,9 @@ export default {
       }
     }
   }
+}
+.van-list__placeholder{
+  height: 50px;
 }
 </style>
 

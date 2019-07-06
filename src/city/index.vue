@@ -65,6 +65,7 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
+import { log } from 'util';
 export default {
   name: "city",
 
@@ -96,6 +97,8 @@ export default {
      * @param {String} py 拼音首字母
      */
     goTop(py) {
+      
+
       // 1. 找到左侧对应着的dom元素
       let el = this.$refs["box_" + py][0];
       let box = this.$refs["lv-indexlist__content"];

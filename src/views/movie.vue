@@ -3,7 +3,9 @@
     v-model="filmLoading"
     @load="getFilmList"
     :finished="isFinished"
+
     finished-text="已经是最后一页了"
+
     ref="myBox"
   >
     <div class="page-home-movie">
@@ -93,6 +95,7 @@ export default {
 @import "~@/assets/mixins.scss";
 @import "~@/assets/px2rem.scss";
 
+
 .page-home-movie {
   height: 100%;
   padding: 0 px2rem(16);
@@ -137,6 +140,7 @@ export default {
           top: px2rem(2);
         }
       }
+
     }
   }
 }

@@ -1,7 +1,12 @@
 <template>
   <div class="page-city">
+    <van-nav-bar
+      title="请选择当前城市"
+      left-text="返回"
+      left-arrow
+      @click-left="onClickLeft"
+    />
     <van-search v-model="searchVal" placeholder="请输入搜索关键词" />
-
     <!-- 拼音检索 -->
     <div class="lv-indexlist" v-show="!searchVal">
       <ul class="lv-indexlist__content" ref="lv-indexlist__content">
@@ -65,7 +70,6 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
-import { log } from 'util';
 export default {
   name: "city",
 
@@ -91,7 +95,9 @@ export default {
     // 将请求城市列表的代码移动到万年老二哪里去做。
     // why: 应该这个数据在很多地方都需要使用到
     // ...mapActions("city", ["getCities"]),
-
+    onClickLeft() {
+     this.$router.go(-1);
+    },
     /**
      * 点击右侧拼音首字母，让左侧对应的元素滚动到最顶部
      * @param {String} py 拼音首字母

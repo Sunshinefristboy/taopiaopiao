@@ -12,7 +12,7 @@
       <div class="top">
         <div class="left">
           <img src="@/assets/imges/logo.jpg" alt>
-          <span>北京<i class="iconfont icon-jiantouarrow486"></i></span>
+          <router-link to="/city"><span>北京<i class="iconfont icon-jiantouarrow486"></i></span></router-link>
         </div>
         <div class="right">
           <van-tabs v-model="curFilmType" line-width="20px" title-active-color="#ef3d5d">

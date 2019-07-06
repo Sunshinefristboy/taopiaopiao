@@ -1,7 +1,7 @@
 <template>
 
   <div class="filmlist-all">
-    <div class="mz-filmlist" v-for="(item, index) in list" :key="index">
+    <router-link to="/film" class="mz-filmlist" v-for="(item, index) in list" :key="index">
       <div class="mz-filmlist__left">
         <div class="__left-left">
           <img :src="item.poster" alt="">
@@ -18,11 +18,10 @@
         </div>
       </div>
       <div class="mz-filmlist__right">
-        <a href="javascript:;" style="background:#ff3890" v-show="filmType === 'nowPlaying'">购票</a>
-        <a href="javascript:;" style="background:#0187e6" v-show="filmType === 'comingSoon'">预售</a>
+        <router-link to="/shoplist" href="javascript:;" style="background:#ff3890" v-show="filmType === 'nowPlaying'">购票</router-link>
+        <router-link to="/shoplist" style="background:#0187e6" v-show="filmType === 'comingSoon'">预售</router-link>
       </div>
-    </div>
-
+    </router-link>
   </div>
 </template>
 

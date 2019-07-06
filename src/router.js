@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import index from './views/index.vue'
+import store from '@/store'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
@@ -19,6 +20,7 @@ export default new Router({
         path:'cinema',
         name:'cinema',
         component:()=>import('./views/cinema.vue')
+        
       },
       {
         path:'',
@@ -35,11 +37,35 @@ export default new Router({
     {
       path: '/city',
       name: 'city',
-      component: () => import('./city/city.vue')
+      component: () => import('./city/index.vue')
+    },
+    {
+      path: '/film',
+      name: 'film',
+      component: () => import('./film/film.vue'),
+      meta:{
+        islogined:true
+      }
     },
     {
       path:'*',
       redirect:'./index'
     }
   ]
+});
+
+
+router.beforeEach((to, from, next) => {
+  if(to.meta.islogined&&!store.state.login.login_info){
+
+    return next({
+      path:'/login',
+      query:{
+        redirect:to.fullPath
+      }
+    });
+  }
+  next()
 })
+
+export default router;

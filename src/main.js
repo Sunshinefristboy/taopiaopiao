@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from '@/store/index'
 import { Tabbar, TabbarItem,Field,Button,Tab, Tabs,Toast,Search,List,NavBar } from 'vant'
+
 import './assets/base.scss'
 import 'swiper/dist/css/swiper.css';
 

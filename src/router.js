@@ -11,23 +11,24 @@ const router = new Router({
       path: '/',
       name: 'index',
       component: index,
-      children:[{
-        path:'index',
-        name:'movie',
-        component:()=>import('./views/movie.vue')
-      },
-      {
-        path:'cinema',
-        name:'cinema',
-        component:()=>import('./views/cinema.vue')
-        
-      },
-      {
-        path:'',
-        redirect:'./index'
-      }
-    
-    ]
+
+      children:[
+        {
+          path:'index',
+          name:'movie',
+          component:()=>import('./views/movie.vue')
+        },
+        {
+          path:'cinema',
+          name:'cinema',
+          component:()=>import('./views/cinema.vue')
+        },
+        {
+          path:'',
+          redirect:'./index'
+        }
+      ]
+
     },
     {
       path: '/login',
@@ -42,7 +43,12 @@ const router = new Router({
     {
       path: '/film',
       name: 'film',
-      component: () => import('./film/film.vue'),
+      component: () => import('./film/film.vue')
+    },
+    {
+      path: '/shoplist',
+      name: 'shoplist',
+      component: () => import('./views/shoplist.vue'),
       meta:{
         islogined:true
       }
